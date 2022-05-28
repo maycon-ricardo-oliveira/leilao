@@ -25,7 +25,7 @@ $maiorValor = $leiloeiro->getMaiorValor();
 $valorEsperado = 2500;
 
 if ($maiorValor == $valorEsperado) {
-    echo "Teste Ok";
+    echo "Teste Ok" . PHP_EOL;
 } else {
-    echo "Teste FALHOU";
+    echo "Teste FALHOU". PHP_EOL;
 }
