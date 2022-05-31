@@ -1,23 +1,33 @@
 <?php
 
-namespace Alura\Leilao\Service;
+namespace Leilao\Service;
 
-use Alura\Leilao\Model\Leilao;
+use Leilao\Model\Leilao;
 
 class Avaliador
 {
-    private $maiorValor;
+    private $maiorValor = -INF;
+    private $menorValor = INF;
 
     public function avalia(Leilao $leilao): void
     {
-        $lances = $leilao->getLances();
-        $ultimoLance = $lances[count($lances) - 1]->getValor();
-
-        $this->maiorValor = $ultimoLance;
+        foreach ($leilao->getLances() as $lance) {
+            if ($lance->getValor() > $this->maiorValor) {
+                $this->maiorValor = $lance->getValor();
+            }
+            if ($lance->getValor() < $this->menorValor) {
+                $this->menorValor = $lance->getValor();
+            }
+        }
     }
 
     public function getMaiorValor()
     {
         return $this->maiorValor;
+    }
+
+    public function getMenorValor()
+    {
+        return $this->menorValor;
     }
 }
