@@ -10,11 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class AvaliadorTest extends TestCase
 {
-    public function testAvaliadorDeveEncontrarOMaiorValorDeLancesEmOrdemCrescente()
+    /**
+     * @param Leilao $leilao
+     * @dataProvider leilaoEmOrdemCrescente
+     * @dataProvider leilaoEmOrdemDecrescente
+     * @dataProvider leilaoEmOrdemAleatoria
+     */
+    public function testAvaliadorDeveEncontrarOMaiorValorDeLances(Leilao $leilao)
     {
-
-        // Arrange  -   Given
-        $leilao = $this->leilaoEmOrdemCrescente();
 
         // Act  -   When
         $leiloeiro = new Avaliador();
@@ -25,42 +28,15 @@ class AvaliadorTest extends TestCase
         // Assert   -   Then
         $this->assertEquals(2000, $maiorValor);
     }
-    public function testAvaliadorDeveEncontrarOMaiorValorDeLancesEmOrdemDecrescente()
+
+    /**
+     * @param Leilao $leilao
+     * @dataProvider leilaoEmOrdemCrescente
+     * @dataProvider leilaoEmOrdemDecrescente
+     * @dataProvider leilaoEmOrdemAleatoria
+     */
+    public function testAvaliadorDeveEncontrarOMenorValorDeLances(Leilao $leilao)
     {
-
-        // Arrange  -   Given
-        $leilao = $this->leilaoEmOrdemDecrescente();
-
-        // Act  -   When
-        $leiloeiro = new Avaliador();
-        $leiloeiro->avalia($leilao);
-
-        $maiorValor = $leiloeiro->getMaiorValor();
-
-        // Assert   -   Then
-        $this->assertEquals(2000, $maiorValor);
-    }
-    public function testAvaliadorDeveEncontrarOMenorValorDeLancesEmOrdemDecrescente()
-    {
-
-        // Arrange  -   Given
-        $leilao = $this->leilaoEmOrdemDecrescente();
-
-        // Act  -   When
-        $leiloeiro = new Avaliador();
-        $leiloeiro->avalia($leilao);
-
-        $menorValor = $leiloeiro->getMenorValor();
-
-        // Assert   -   Then
-        $this->assertEquals(1000, $menorValor);
-    }
-    public function testAvaliadorDeveEncontrarOMenorValorDeLancesEmOrdemCrescente()
-    {
-
-        // Arrange  -   Given
-        $leilao = $this->leilaoEmOrdemCrescente();
-
         // Act  -   When
         $leiloeiro = new Avaliador();
         $leiloeiro->avalia($leilao);
@@ -71,9 +47,14 @@ class AvaliadorTest extends TestCase
         $this->assertEquals(1000, $menorValor);
     }
 
-    public function testAvaliadorDeveBuscar3MaioresValores()
+    /**
+     * @param Leilao $leilao
+     * @dataProvider leilaoEmOrdemCrescente
+     * @dataProvider leilaoEmOrdemDecrescente
+     * @dataProvider leilaoEmOrdemAleatoria
+     */
+    public function testAvaliadorDeveBuscar3MaioresValores(Leilao $leilao)
     {
-        $leilao = $this->leilaoEmOrdemAleatoria();
 
         $leiloeiro = new Avaliador();
         $leiloeiro->avalia($leilao);
@@ -99,7 +80,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($jorge, 1700));
         $leilao->recebeLance(new Lance($maria, 2000));
 
-        return $leilao;
+        return [[$leilao]];
     }
 
     public function leilaoEmOrdemDecrescente()
@@ -116,7 +97,9 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($joao, 1500));
         $leilao->recebeLance(new Lance($ana, 1000));
 
-        return $leilao;
+        return [
+            [$leilao]
+        ];
     }
 
     public function leilaoEmOrdemAleatoria()
@@ -133,6 +116,7 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($ana, 1000));
         $leilao->recebeLance(new Lance($joao, 1500));
 
-        return $leilao;
+        return [[$leilao]];
     }
+
 }
