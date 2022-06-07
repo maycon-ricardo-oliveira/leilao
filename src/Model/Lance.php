@@ -7,7 +7,7 @@ class Lance
     /** @var Usuario */
     private $usuario;
     /** @var float */
-    private float $valor;
+    private $valor;
 
     public function __construct(Usuario $usuario, float $valor)
     {
