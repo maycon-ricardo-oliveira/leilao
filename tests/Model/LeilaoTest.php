@@ -15,15 +15,27 @@ class LeilaoTest extends TestCase
      * @return void
      * @dataProvider geraLances
      */
-    public function testLeilaoDeveReceberLances(int $quantidadeLances, Leilao $leilao, array $valores)
-    {
-
+    public function testLeilaoDeveReceberLances(
+        int $quantidadeLances,
+        Leilao $leilao,
+        array $valores
+    ) {
         static::assertCount($quantidadeLances, $leilao->getLances());
-
         foreach ($valores as $key => $valor) {
             static::assertEquals($valor, $leilao->getLances()[$key]->getValor());
         }
+    }
 
+    public function testLeilaoNaoDeveReceberLancesRepetidos()
+    {
+        $leilao = new Leilao('Kombi');
+        $ana = new Usuario('Ana');
+
+        $leilao->recebeLance(new Lance($ana, 1000));
+        $leilao->recebeLance(new Lance($ana, 1500));
+
+        static::assertCount(1, $leilao->getLances());
+        static::assertEquals(1000, $leilao->getLances()[0]->getValor());
     }
 
     public function geraLances()
