@@ -65,6 +65,17 @@ class LeilaoTest extends TestCase
 
     }
 
+    public function testLeilaoNaoDeveReceberLancesAposFinalizado()
+    {
+        static::expectException(\DomainException::class);
+        static::expectExceptionMessage('Leilão não pode receber lances após ser finalizado');
+        $leilao = new Leilao('Gol Quadrado');
+        $leilao->recebeLance(new Lance(new Usuario('José'), 2000));
+        $leilao->finaliza();
+        $leilao->recebeLance(new Lance(new Usuario('Ana'), 2500));
+
+    }
+
     public function geraLances()
     {
         $joao = new Usuario('João');
