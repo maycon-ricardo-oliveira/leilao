@@ -1,10 +1,10 @@
 <?php
 
-namespace Leilao\Tests\Domain;
+namespace Alura\Leilao\Tests\Domain;
 
-use Leilao\Model\Lance;
-use Leilao\Model\Leilao;
-use Leilao\Model\Usuario;
+use Alura\Leilao\Model\Lance;
+use Alura\Leilao\Model\Leilao;
+use Alura\Leilao\Model\Usuario;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 

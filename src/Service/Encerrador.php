@@ -1,8 +1,8 @@
 <?php
 
-namespace Leilao\Service;
+namespace Alura\Leilao\Service;
 
-use Leilao\Dao\Leilao as LeilaoDao;
+use Alura\Leilao\Dao\Leilao as LeilaoDao;
 
 class Encerrador
 {
