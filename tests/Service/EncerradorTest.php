@@ -9,42 +9,6 @@ use Alura\Leilao\Dao\Leilao as LeilaoDao;
 use Alura\Leilao\Service\Encerrador;
 use PHPUnit\Framework\TestCase;
 
-class LeilaoDaoMock extends LeilaoDao {
-
-    private $leiloes = [];
-
-    public function salva(Leilao $leilao): void
-    {
-        $this->leiloes[] = $leilao;
-    }
-
-    /**
-     * @return array|Leilao[]
-     */
-    public function recuperarNaoFinalizados(): array
-    {
-        return array_filter($this->leiloes, function (Leilao $leilao) {
-           return !$leilao->estaFinalizado();
-        });
-    }
-
-    public function atualiza(Leilao $leilao): void
-    {
-
-    }
-
-    /**
-     * @return array|Leilao[]
-     */
-    public function recuperarFinalizados(): array
-    {
-        return array_filter($this->leiloes, function (Leilao $leilao) {
-            return $leilao->estaFinalizado();
-        });
-    }
-
-}
-
 class EncerradorTest extends TestCase
 {
 
@@ -53,17 +17,25 @@ class EncerradorTest extends TestCase
         $fiatMobi = new Leilao('Fiat Mobi 2021', new \DateTimeImmutable('8 days ago'));
         $fiatArgo = new Leilao('Fiat Argo 2021', new \DateTimeImmutable('10 days ago'));
 
-        $leilaoDao = new LeilaoDaoMock();
-        $leilaoDao->salva($fiatMobi);
-        $leilaoDao->salva($fiatArgo);
+        $leilaoDao = $this->createMock(LeilaoDao::class);
+//        $leilaoDao = $this->getMockBuilder(LeilaoDao::class)
+//            ->setConstructorArgs([new \PDO('sqlite::memory:')])->getMock();
+        $leilaoDao->method('recuperarFinalizados')->willReturn([$fiatMobi, $fiatArgo]);
+        $leilaoDao->method('recuperarNaoFinalizados')->willReturn([$fiatMobi, $fiatArgo]);
+        $leilaoDao->expects($this->exactly(2))
+            ->method('atualiza')
+            ->withConsecutive(
+                [$fiatMobi],
+                [$fiatArgo]
+            );
 
         $encerrador = new Encerrador($leilaoDao);
         $encerrador->encerra();
 
-        $finalizados = $leilaoDao->recuperarFinalizados();
+        $finalizados = [$fiatMobi, $fiatArgo];
 
         self::assertCount(2, $finalizados);
-        self::assertEquals('Fiat Mobi 2021', $finalizados[0]->recuperarDescricao());
-        self::assertEquals('Fiat Argo 2021', $finalizados[1]->recuperarDescricao());
+        self::assertTrue($finalizados[0]->estaFinalizado());
+        self::assertTrue($finalizados[1]->estaFinalizado());
     }
 }
