@@ -1,10 +1,10 @@
-Leilao (Alura\Leilao\Tests\Domain\Leilao)
+Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
  [x] Propor lance em leilao finalizado deve lancar excecao
  [x] Propor lances em leilao deve funcionar with data set #0
  [x] Propor lances em leilao deve funcionar with data set #1
  [x] Mesmo usuario nao pode propor dois lances seguidos
 
-Avaliador (Alura\Leilao\Tests\Domain\Avaliador)
+Avaliador (Alura\Leilao\Tests\Unit\Service\Avaliador)
  [x] Avaliador deve achar maior valor with data set #0
  [x] Avaliador deve achar maior valor with data set #1
  [x] Avaliador deve achar maior valor with data set #2
@@ -16,7 +16,7 @@ Avaliador (Alura\Leilao\Tests\Domain\Avaliador)
  [x] Avaliador deve ordenar os 3 lances with data set #2
  [x] Avaliador deve retornar os maiores lances disponiveis
 
-Encerrador (Alura\Leilao\Tests\Service\Encerrador)
+Encerrador (Alura\Leilao\Tests\Unit\Service\Encerrador)
  [x] Leiloes com mais de uma semana devem ser encerrados
  [x] Deve continar o processamento ao encontrar erro ao enviar email
  [x] So deve enviar enviar leilao por email apos finalizado
