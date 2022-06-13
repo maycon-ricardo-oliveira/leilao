@@ -1,3 +1,6 @@
+Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
+ [x] Insercao e busca devem funcionar
+
 Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
  [x] Propor lance em leilao finalizado deve lancar excecao
  [x] Propor lances em leilao deve funcionar with data set #0
