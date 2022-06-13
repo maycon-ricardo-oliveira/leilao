@@ -25,12 +25,10 @@ class LeilaoDaoTest extends TestCase
         $leilaoDao = new LeilaoDao($this->pdo);
 
         $leilaoDao->salva($leilao);
-
         $leiloes = $leilaoDao->recuperarNaoFinalizados();
 
         self::assertCount(1, $leiloes);
         self::assertContainsOnlyInstancesOf(Leilao::class, $leiloes);
-
         self::assertSame('Fusca 1947', $leiloes[0]->recuperarDescricao());
     }
 
