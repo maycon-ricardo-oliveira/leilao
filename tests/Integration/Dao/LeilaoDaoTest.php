@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class LeilaoDaoTest extends TestCase
 {
 
-    private $pdo;
+    private \PDO $pdo;
 
     protected function setUp(): void
     {
@@ -21,7 +21,6 @@ class LeilaoDaoTest extends TestCase
 
     public function testInsercaoEBuscaDevemFuncionar()
     {
-
         $leilao = new Leilao('Fusca 1947');
         $leilaoDao = new LeilaoDao($this->pdo);
 
