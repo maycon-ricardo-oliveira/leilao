@@ -35,7 +35,6 @@ class LeilaoDaoTest extends TestCase
     public function testBuscaLeiloesNaoFinalizados(array $leiloes)
     {
         $leilaoDao = new LeilaoDao(self::$pdo);
-
         foreach ($leiloes as $leilao) {
             $leilaoDao->salva($leilao);
         }
@@ -53,7 +52,6 @@ class LeilaoDaoTest extends TestCase
     public function testBuscaLeiloesFinalizados(array $leiloes)
     {
         $leilaoDao = new LeilaoDao(self::$pdo);
-
         foreach ($leiloes as $leilao) {
             $leilaoDao->salva($leilao);
         }
@@ -65,6 +63,20 @@ class LeilaoDaoTest extends TestCase
         self::assertSame('Fiat Uno', $leiloes[0]->recuperarDescricao());
     }
 
+    public function testAoAtualiazrLeilaoStatusDeveSerAlterado()
+    {
+        $leilao = new Leilao('Ford Ecosport');
+        $leilaoDao = new LeilaoDao(self::$pdo);
+        $leilao = $leilaoDao->salva($leilao);
+        $leilao->finaliza();
+
+        $leilaoDao->atualiza($leilao);
+
+        $leiloes = $leilaoDao->recuperarFinalizados();
+
+        self::assertCount(1, $leiloes);
+        self::assertSame('Ford Ecosport', $leiloes[0]->recuperarDescricao());
+    }
     protected function tearDown(): void
     {
         self::$pdo->rollBack();

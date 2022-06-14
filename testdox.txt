@@ -1,6 +1,7 @@
 Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
  [x] Busca leiloes nao finalizados with data set #0
  [x] Busca leiloes finalizados with data set #0
+ [x] Ao atualiazr leilao status deve ser alterado
 
 Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
  [x] Propor lance em leilao finalizado deve lancar excecao
