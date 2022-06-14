@@ -16,7 +16,7 @@ class LeilaoDaoTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$pdo = new \PDO('sqlite::memory:');
-        $sql = self::$pdo->exec('create table leiloes (
+        self::$pdo->exec('create table leiloes (
             id         INTEGER primary key,
             descricao  TEXT,
             finalizado BOOL,
