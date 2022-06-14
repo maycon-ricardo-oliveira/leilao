@@ -29,17 +29,36 @@ class LeilaoDaoTest extends TestCase
         self::$pdo->beginTransaction();
     }
 
-    public function testInsercaoEBuscaDevemFuncionar()
+    public function testBuscaLeiloesNaoFinalizados()
     {
-        $leilao = new Leilao('Fusca 1947');
+        $leilaoFusca = new Leilao('Fusca 1947');
+        $leilaoFiat = new Leilao('Fiat Uno');
         $leilaoDao = new LeilaoDao(self::$pdo);
 
-        $leilaoDao->salva($leilao);
+        $leilaoFiat->finaliza();
+        $leilaoDao->salva($leilaoFusca);
+        $leilaoDao->salva($leilaoFiat);
         $leiloes = $leilaoDao->recuperarNaoFinalizados();
 
         self::assertCount(1, $leiloes);
         self::assertContainsOnlyInstancesOf(Leilao::class, $leiloes);
         self::assertSame('Fusca 1947', $leiloes[0]->recuperarDescricao());
+    }
+
+    public function testBuscaLeiloesFinalizados()
+    {
+        $leilaoFusca = new Leilao('Fusca 1947');
+        $leilaoFiat = new Leilao('Fiat Uno');
+        $leilaoDao = new LeilaoDao(self::$pdo);
+
+        $leilaoFiat->finaliza();
+        $leilaoDao->salva($leilaoFusca);
+        $leilaoDao->salva($leilaoFiat);
+        $leiloes = $leilaoDao->recuperarFinalizados();
+
+        self::assertCount(1, $leiloes);
+        self::assertContainsOnlyInstancesOf(Leilao::class, $leiloes);
+        self::assertSame('Fiat Uno', $leiloes[0]->recuperarDescricao());
     }
 
     protected function tearDown(): void

@@ -1,5 +1,6 @@
 Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
- [x] Insercao e busca devem funcionar
+ [x] Busca leiloes nao finalizados
+ [x] Busca leiloes finalizados
 
 Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
  [x] Propor lance em leilao finalizado deve lancar excecao
