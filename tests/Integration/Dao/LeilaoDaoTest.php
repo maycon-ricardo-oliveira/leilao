@@ -70,12 +70,17 @@ class LeilaoDaoTest extends TestCase
         $leilao = $leilaoDao->salva($leilao);
         $leilao->finaliza();
 
+        $leiloes = $leilaoDao->recuperarNaoFinalizados();
+        self::assertCount(1, $leiloes);
+        self::assertSame('Ford Ecosport', $leiloes[0]->recuperarDescricao());
+        self::assertFalse($leiloes[0]->estaFinalizado());
+
         $leilaoDao->atualiza($leilao);
 
         $leiloes = $leilaoDao->recuperarFinalizados();
-
         self::assertCount(1, $leiloes);
         self::assertSame('Ford Ecosport', $leiloes[0]->recuperarDescricao());
+        self::assertTrue($leiloes[0]->estaFinalizado());
     }
     protected function tearDown(): void
     {
