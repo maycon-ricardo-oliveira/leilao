@@ -1,8 +1,3 @@
-Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
- [x] Busca leiloes nao finalizados with data set #0
- [x] Busca leiloes finalizados with data set #0
- [x] Ao atualiazr leilao status deve ser alterado
-
 Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
  [x] Propor lance em leilao finalizado deve lancar excecao
  [x] Propor lances em leilao deve funcionar with data set #0
@@ -25,4 +20,9 @@ Encerrador (Alura\Leilao\Tests\Unit\Service\Encerrador)
  [x] Leiloes com mais de uma semana devem ser encerrados
  [x] Deve continar o processamento ao encontrar erro ao enviar email
  [x] So deve enviar enviar leilao por email apos finalizado
+
+Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
+ [x] Busca leiloes nao finalizados with data set #0
+ [x] Busca leiloes finalizados with data set #0
+ [x] Ao atualiazr leilao status deve ser alterado
 
