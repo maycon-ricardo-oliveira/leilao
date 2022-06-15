@@ -11,8 +11,8 @@ class RestTest extends TestCase
     {
         $resposta = file_get_contents('http://localhost:8080/rest.php');
 
-        self::assertIsArray(json_decode($resposta));
         self::assertStringContainsString("200 OK", $http_response_header[0]);
+        self::assertIsArray(json_decode($resposta));
 
     }
 }
